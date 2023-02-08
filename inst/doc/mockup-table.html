@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Create Mockup Table Based on Metadata</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Create Mockup Table Based on Metadata</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metalite)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r2rtf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>In this document, we illustrate a way to create mockup table by using
+the metadata created by metalite. An easy-to-follow example is used for
+illustration purpose. If users want to get a comprehensive production
+ready work, then users need to refine this simple example to align with
+their cases.</p>
+<div id="overview-of-the-example-we-used" class="section level2">
+<h2>Overview of the example we used</h2>
+<p>In this example, the available datasets are adae and adsl, which are
+available in the r2rtf package, i.e., <code>r2rtf::r2rtf_adae</code> and
+<code>r2rtf::r2rtf_adsl</code>. For these two datasets, our objective is
+to conduct two adverse event (AE) analysis: (1) AE summary analysis and
+(3) specific AE analysis. And the population for these two analysis is
+all participants as treated (APaT). Besides, there is one observations
+for these two analysis: weeks 0-12. In the analysis, we are interested
+in three types of AEs: (1) any AEs, (2) series AEs, and (3) drug-related
+AEs.</p>
+<p>Please note the above example servers for illustration purpose,
+instead of a comprehensive production ready work. If users are
+interested in more AE analysis with more AE categories, or get more
+types of populations/observations, modification of code in this vignette
+is needed.</p>
+</div>
+<div id="prepare-the-metadata" class="section level2">
+<h2>Prepare the metadata</h2>
+<p>In this section, we introduce the steps to prepare the metadata used
+for the aforementioned two AE analysis.</p>
+<div id="step-1-define-the-metadata" class="section level3">
+<h3>Step 1: Define the metadata</h3>
+<p>To define the metadata, users need to specify both population and
+observations datasets. In our example, the observation dataset comes
+from <code>r2rtf::r2rtf_adae</code> and the population dataset comes
+from <code>r2rtf::r2rtf_adsl</code>. So we define the metadata by
+<code>meta_adam()</code> as follows, where users can specify the
+observation dataset name and population dataset name.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> r2rtf<span class="sc">::</span>r2rtf_adae</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> r2rtf<span class="sc">::</span>r2rtf_adsl <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">TRTA =</span> TRT01A)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">meta_adam</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> adae,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> adsl</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="step-2-define-the-analysis-plan" class="section level3">
+<h3>Step 2: Define the analysis plan</h3>
+<p>To start mockup tables, we begin with defining the mockup analysis
+plan. To define an analysis plan, we use <code>plan()</code> and
+<code>add_plan()</code> to add details per one <strong>mockup</strong>
+analysis.</p>
+<p>Recall in this example, we have 2 analysis plans:</p>
+<ul>
+<li>AE summary;</li>
+<li>Specific AE analysis.</li>
+</ul>
+<p>For the AE summary analysis, we will define
+<code>analysis = &quot;ae_summary&quot;</code>. Similarly we define proper
+population, observation and parameter key words for</p>
+<ul>
+<li><code>population = &quot;apat&quot;</code>: All Participants as Treated
+(APaT).</li>
+<li><code>observation = &quot;wk12&quot;</code>: Weeks 0-12 analyses.</li>
+<li><code>parameter = &quot;any;rel;ser&quot;</code>: a table to cover “any”,
+“drug related” and “serious” adverse events.</li>
+</ul>
+<p>For the AE specific analysis, users can follow the similar logic as
+in AE summary.</p>
+<p>So, we can define an analysis plan as below for a total of 2 mockup
+to generate 4 TLFs.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">&lt;-</span> <span class="fu">plan</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> <span class="st">&quot;wk12&quot;</span>, <span class="at">parameter =</span> <span class="st">&quot;any;rel;ser&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_plan</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">analysis =</span> <span class="st">&quot;ae_specific&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="st">&quot;wk12&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> <span class="fu">c</span>(<span class="st">&quot;any&quot;</span>, <span class="st">&quot;rel&quot;</span>, <span class="st">&quot;ser&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>plan</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    1 ae_specific       apat        wk12         any</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    1 ae_specific       apat        wk12         rel</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    1 ae_specific       apat        wk12         ser</span></span></code></pre></div>
+<p>Then, we use incorporate the above defined plan into the metadata by
+using <code>define_plan()</code>, i.e.,</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">define_plan</span>(plan)</span></code></pre></div>
+</div>
+<div id="step-3-define-the-keywords" class="section level3">
+<h3>Step 3: Define the keywords</h3>
+<p>After defining the overview of the analysis plan, we begin to define
+the meaning of key words.</p>
+<p><strong>Define keywords in population:</strong></p>
+<p>The following code define the keywords <code>&quot;apat&quot;</code>, which is
+a population keywords for APaT population. And here we also cover the
+key information such as group variable, the group order, etc…</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_population</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_order =</span> <span class="fu">c</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;High Dose&quot;</span> <span class="ot">=</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><strong>Define keywords in observation:</strong></p>
+<p>The following code define the keywords <code>&quot;wk12&quot;</code>, which is
+an observation keywords for Weeks 0-12 observations.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk12&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ae_var =</span> <span class="st">&quot;AEDECOD&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;AEREL&quot;</span>, <span class="st">&quot;AESER&quot;</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 12&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><strong>Define keywords in analysis plans:</strong></p>
+<p>Note that in the analysis plan, there are 5 keywords:</p>
+<ul>
+<li><code>&quot;any&quot;</code>: a parameter keywords for any adverse
+events.</li>
+<li><code>&quot;rel&quot;</code>: a parameter keywords for drug-related adverse
+events.</li>
+<li><code>&quot;ser&quot;</code>: a parameter keywords for serious adverse
+events.</li>
+<li><code>&quot;ae_summary&quot;</code>: an analysis keywords for AE summary
+analysis.</li>
+<li><code>&quot;ae_specific&quot;</code>: an analysis keywords for specific AE
+analysis.</li>
+</ul>
+<p>For the first three keywords, we can define them by
+<code>define_parameter()</code> as follows. Here we can add (1) the
+endnotes, (2) labels, (3) the criterion to filter, etc.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;any&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_notes =</span> <span class="fu">c</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;rel&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AEREL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;POSSIBLE&quot;</span>, <span class="st">&quot;PROBABLE&quot;</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;drug-realted adverse events&quot;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ser&quot;</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AESER <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;serious adverse events&quot;</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_notes =</span> <span class="fu">c</span>(<span class="st">&quot;Serious adverse events up to 90 days of last dose are included.&quot;</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>For the last two keywords, we can define them by
+<code>define_analysis()</code>. In this vignette, we only present the
+mockup table of AE summary. If users are interested in specific AE
+analysis, please define the keywords for <code>&quot;ae_specific&quot;</code> as
+<code>define_analysis(name = &quot;ae_specific&quot;, title = ...)</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_summary&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Adverse Events&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="step-4-build-and-review-the-metadata" class="section level3">
+<h3>Step 4: Build and review the metadata</h3>
+<p>Once all keywords, datasets, analysis plan are defined, users can
+build the metadata to compose all the information.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">meta_build</span>()</span></code></pre></div>
+<p>After the entire metadata is built, users can review the analysis
+plan by</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>meta<span class="sc">$</span>plan</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    1 ae_specific       apat        wk12         any</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    1 ae_specific       apat        wk12         rel</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    1 ae_specific       apat        wk12         ser</span></span></code></pre></div>
+<p>And the entire meta is</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>meta</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ADaM metadata: </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .$data_population     Population data with 254 subjects </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .$data_observation    Observation data with 1191 records </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .$plan    Analysis plan with 4 plans </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis population type:</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     name        id  group var       subset                         label</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &#39;apat&#39; &#39;USUBJID&#39; &#39;TRTA&#39;     SAFFL == &#39;Y&#39; &#39;All Participants as Treated&#39;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     group_order</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Xanomeline High Dose, Placebo</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis observation type:</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     name        id  group          var       subset           label    ae_var</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &#39;wk12&#39; &#39;USUBJID&#39; &#39;TRTA&#39; AEREL, AESER SAFFL == &#39;Y&#39; &#39;Weeks 0 to 12&#39; &#39;AEDECOD&#39;</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis parameter type:</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    name                         label                               subset</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &#39;any&#39;          &#39;any adverse events&#39;                                     </span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &#39;rel&#39; &#39;drug-realted adverse events&#39; AEREL %in% c(&#39;POSSIBLE&#39;, &#39;PROBABLE&#39;)</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &#39;ser&#39;      &#39;serious adverse events&#39;                         AESER == &#39;Y&#39;</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis function:</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            name                           label</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  &#39;ae_summary&#39;  &#39;Table: adverse event summary&#39;</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &#39;ae_specific&#39; &#39;Table: specific adverse event&#39;</span></span></code></pre></div>
+</div>
+</div>
+<div id="add-components-of-mockup-table" class="section level2">
+<h2>Add components of mockup table</h2>
+<p>Based on the mockup table, we specify additional parameters that are
+required in the function we will define in the next section.</p>
+<ul>
+<li><code>mockup = TRUE</code> as we will create mockup for both
+analysis.</li>
+<li><code>output_report</code> to define the output path based on
+<code>analysis</code> keywords.</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>meta<span class="sc">$</span>plan <span class="ot">&lt;-</span> meta<span class="sc">$</span>plan <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mockup =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_report =</span> <span class="fu">paste0</span>(<span class="st">&quot;./tlf/mock-&quot;</span>, analysis, <span class="st">&quot;.rtf&quot;</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>meta<span class="sc">$</span>plan</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter mockup</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser   TRUE</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    1 ae_specific       apat        wk12         any   TRUE</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    1 ae_specific       apat        wk12         rel   TRUE</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    1 ae_specific       apat        wk12         ser   TRUE</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                output_report</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  ./tlf/mock-ae_summary.rtf</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 ./tlf/mock-ae_specific.rtf</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 ./tlf/mock-ae_specific.rtf</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 ./tlf/mock-ae_specific.rtf</span></span></code></pre></div>
+<p>After the plan is updated, we can construct call program. Here we
+also provide a global argument for the data source.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec_call_program</span>(meta,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">&quot;[adam-adsl; adae]&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;ae_summary(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any;rel;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_summary.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;      </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;rel&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;      </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;</span></span></code></pre></div>
+<p>The pending effort is to define an <code>ae_summary()</code> and an
+<code>ae_specific()</code> function that can generate the mock up tables
+based on the inputs.</p>
+</div>
+<div id="create-functions" class="section level2">
+<h2>Create functions</h2>
+<p>Let’s create a simplified version of <code>ae_summary()</code> to
+illustrate the idea.</p>
+<details>
+<summary>
+Click to view the code for function <code>ae_summary()</code>
+</summary>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ae_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(meta,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                       population,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                       observation,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                       parameter,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                       mockup,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                       output_report,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                       data_source,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                       ...) {</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Identify parameter keywords</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  para_list <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(parameter, <span class="st">&quot;;&quot;</span>))</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Row label</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  ae_label <span class="ot">&lt;-</span> <span class="fu">vapply</span>(para_list,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">collect_adam_mapping</span>(meta, x)<span class="sc">$</span>label</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN.VALUE =</span> <span class="fu">character</span>(<span class="dv">1</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get treatment grouping order</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  trt_order <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">collect_adam_mapping</span>(meta, population)<span class="sc">$</span>group_order)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the title/endnotes of TLF</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  title_text <span class="ot">&lt;-</span> <span class="fu">collect_title</span>(</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">meta =</span> meta,</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">population =</span> population,</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> observation,</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> parameter, <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  title_text[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;{Week}&quot;</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Logic to create mockup table</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (mockup) {</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate RTF</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">ae_label =</span> ae_label,</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_1 =</span> <span class="fu">rep</span>(<span class="st">&quot;x&quot;</span>, <span class="fu">length</span>(ae_label)),</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_2 =</span> <span class="fu">rep</span>(<span class="st">&quot;x&quot;</span>, <span class="fu">length</span>(ae_label)), <span class="co"># no display_total/CI</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">pct_1 =</span> <span class="fu">rep</span>(<span class="st">&quot;x.xx&quot;</span>, <span class="fu">length</span>(ae_label)),</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">pct_2 =</span> <span class="fu">rep</span>(<span class="st">&quot;x.xx&quot;</span>, <span class="fu">length</span>(ae_label))</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(ae_label, n_1, pct_1, n_2, pct_2, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>      <span class="co"># r2rtf::rtf_title(rtf_mock_color(title_text)) |&gt;</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_title</span>(title_text) <span class="sc">|&gt;</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_colheader</span>(<span class="fu">paste0</span>(<span class="st">&quot; | &quot;</span>, <span class="fu">paste</span>(<span class="fu">names</span>(trt_order), <span class="at">collapse =</span> <span class="st">&quot; | &quot;</span>), <span class="st">&quot; &quot;</span>),</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">2</span>, <span class="fu">length</span>(trt_order)))</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_colheader</span>(<span class="st">&quot; | n | (%) | n | (%) &quot;</span>,</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_top =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;single&quot;</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_bottom =</span> <span class="st">&quot;single&quot;</span>,</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_left =</span> <span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="st">&quot;&quot;</span>), <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order)))</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_body</span>(</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_left =</span> <span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="st">&quot;&quot;</span>), <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">text_justification =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order)))</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_source</span>(data_source)</span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Require r2rtf to use color</span></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">attr</span>(x, <span class="st">&quot;page&quot;</span>)<span class="sc">$</span>use_color <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save RTF to a path</span></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(output_report)) {</span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">|&gt;</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>        r2rtf<span class="sc">::</span><span class="fu">rtf_encode</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>        r2rtf<span class="sc">::</span><span class="fu">write_rtf</span>(output_report)</span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>mockup) {</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Logic to perform actual AE summary table.</span></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Omit here</span></span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>  output_report</span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</details>
+<p>For illustration purposes, we only create mock up table for the first
+row.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meta_run</span>(meta,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">i =</span> <span class="dv">1</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">&quot;[adam-adsl; adae]&quot;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $`ae_summary(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any;rel;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_summary.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)`</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;./tlf/mock-ae_summary.rtf&quot;</span></span></code></pre></div>
+</div>
+<div id="display-the-generated-mockup-tables" class="section level2">
+<h2>Display the generated mockup tables</h2>
+<embed src="data:application/pdf;base64,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MSAwIFIvTWVkaWFCb3hbMCAwIDYxMiA3OTJdL0dyb3VwPDwvUy9UcmFuc3BhcmVuY3kvQ1MvRGV2aWNlUkdCL0kgdHJ1ZT4+L0NvbnRlbnRzIDIgMCBSPj4KZW5kb2JqCgo0IDAgb2JqCjw8L1R5cGUvUGFnZXMKL1Jlc291cmNlcyAxMSAwIFIKL01lZGlhQm94WyAwIDAgNjEyIDc5MiBdCi9LaWRzWyAxIDAgUiBdCi9Db3VudCAxPj4KZW5kb2JqCgoxMiAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgNCAwIFIKL09wZW5BY3Rpb25bMSAwIFIgL1hZWiBudWxsIG51bGwgMF0KL0xhbmcoZW4tVVMpCj4+CmVuZG9iagoKMTMgMCBvYmoKPDwvQ3JlYXRvcjxGRUZGMDA1NzAwNzIwMDY5MDA3NDAwNjUwMDcyPgovUHJvZHVjZXI8RkVGRjAwNEMwMDY5MDA2MjAwNzIwMDY1MDA0RjAwNjYwMDY2MDA2OTAwNjMwMDY1MDAyMDAwMzcwMDJFMDAzMT4KL0NyZWF0aW9uRGF0ZShEOjIwMjIwODExMjM0MDEwLTA0JzAwJyk+PgplbmRvYmoKCnhyZWYKMCAxNAowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMTI1NTUgMDAwMDAgbiAKMDAwMDAwMDAxOSAwMDAwMCBuIAowMDAwMDAwNzA0IDAwMDAwIG4gCjAwMDAwMTI2OTggMDAwMDAgbiAKMDAwMDAwMDcyNCAwMDAwMCBuIAowMDAwMDExNDU4IDAwMDAwIG4gCjAwMDAwMTE0ODAgMDAwMDAgbiAKMDAwMDAxMTY3NSAwMDAwMCBuIAowMDAwMDEyMTQ0IDAwMDAwIG4gCjAwMDAwMTI0NjggMDAwMDAgbiAKMDAwMDAxMjUwMCAwMDAwMCBuIAowMDAwMDEyNzk3IDAwMDAwIG4gCjAwMDAwMTI4OTQgMDAwMDAgbiAKdHJhaWxlcgo8PC9TaXplIDE0L1Jvb3QgMTIgMCBSCi9JbmZvIDEzIDAgUgovSUQgWyA8OEMxQUFENzRGOTVBOERGNjU5Qzk0MDM4NzgzOTIyRjk+Cjw4QzFBQUQ3NEY5NUE4REY2NTlDOTQwMzg3ODM5MjJGOT4gXQovRG9jQ2hlY2tzdW0gL0MzMzZEMzBBNjBCMUY3QjE3RDc0N0Q0NzU1MDJDRDc5Cj4+CnN0YXJ0eHJlZgoxMzA2OQolJUVPRgo=" width="100%" height="400px" style="display: block; margin: auto;" type="application/pdf"></embed>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
