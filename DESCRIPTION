@@ -1,6 +1,6 @@
 Package: metalite
 Title: ADaM Metadata Structure
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person("Yilong", "Zhang", role = c("aut")),
     person("Yujie", "Zhao", email = "yujie.zhao@merck.com", role = c("aut", "cre")),
@@ -34,7 +34,7 @@ Suggests: ggplot2, covr, dplyr, gt, knitr, r2rtf, rmarkdown, testthat
 Config/testthat/edition: 3
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-02-07 17:38:59 UTC; zhayuji4
+Packaged: 2023-05-19 16:10:10 UTC; wangben
 Author: Yilong Zhang [aut],
   Yujie Zhao [aut, cre],
   Nan Xiao [aut],
@@ -48,4 +48,4 @@ Author: Yilong Zhang [aut],
   Merck Sharp & Dohme Corp [cph]
 Maintainer: Yujie Zhao <yujie.zhao@merck.com>
 Repository: CRAN
-Date/Publication: 2023-02-08 09:40:05 UTC
+Date/Publication: 2023-05-19 17:10:02 UTC
