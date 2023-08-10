@@ -1,3 +1,8 @@
+# metalite 0.1.3
+
+- `n_subject()` now has a new argument `na` for labeling missing values.
+- Update GitHub Actions workflows.
+
 # metalite 0.1.2
 
 - Add styler workflow.

@@ -1,11 +1,11 @@
-2963603853f02ef8fc4ba196243cdc8a *DESCRIPTION
+35e00613cfef3f3fdc86c61cf8f88c46 *DESCRIPTION
 65bb0f309975310e1a9070f47cb93eb0 *NAMESPACE
-6357ac83c63264ee43855972b56c5062 *NEWS.md
+a32440f994b01d37adb955a38275281e *NEWS.md
 d24f831ebb9a39e14f23c36b353c81e2 *R/adam_mapping.R
 81e60a7315c29a2a9af6295b79a2c7d1 *R/bind_rows2.R
 385649c97dd752d3b84196ce02209939 *R/check_args.R
 42c05bca850bfb45e054ffd7743e57d8 *R/collect.R
-d7e11833e069e2501e7c25170e993da8 *R/collect_n_subject.R
+92a53b3acd9206afd830b4ab1f0be039 *R/collect_n_subject.R
 2c3f6ccc2c3189acf8f7f1690c389618 *R/default.R
 1d91ffd87fa9665c8c5907284846e104 *R/define.R
 7134c13592ac92642b48fecf8f0b69bf *R/label.R
@@ -33,7 +33,7 @@ d2717db6e01e7d47b80beaeae43823e1 *README.md
 e3009f7ba3d29c69ee87a4268f49dec2 *inst/doc/adam-mapping.html
 7e74b4fd9f4de52007be163ff8e8a4af *inst/doc/ar-grid.R
 48e0eed319e4e6d205e330015f28cc25 *inst/doc/ar-grid.Rmd
-d57b24aacf4de8b27bf5ccb464d7675a *inst/doc/ar-grid.html
+f9fd75928a02160765397525437d996a *inst/doc/ar-grid.html
 ce418d6d4cccd8e55d96f4e24fc87746 *inst/doc/component.R
 336f5c4f73db77e4882809ee1a4dca74 *inst/doc/component.Rmd
 815c5c83add8ba5dc255817f9e496c9a *inst/doc/component.html
@@ -74,7 +74,7 @@ c648dc70fbbdf5d00518153845850783 *man/meta_build.Rd
 b616689c9fa2d46e62dfe5310dcaa42a *man/meta_run.Rd
 5e3607c88387cebcf999bce813063990 *man/meta_split.Rd
 85b78358b697304a20b8cbe26c0cf12e *man/metalite-package.Rd
-6b50c89636d0e3d591d04e960e32f695 *man/n_subject.Rd
+cdcbb07a4f6bf2a0110d3d875624be36 *man/n_subject.Rd
 eb8c5e77b3d5d7768fd7cd2253d0b385 *man/outdata.Rd
 2ccc579d35eabc0697806b883e042169 *man/plan.Rd
 c3d28e2ccbb117191518caca59402b56 *man/print.meta_adam.Rd
@@ -89,7 +89,7 @@ af14f152250cb9a46ea7dde3e79edd1f *tests/testthat.R
 274b30db01e7b505386f0aecd7e92d98 *tests/testthat/test-independent-testing-bind_rows2.R
 b428dc27422954cc16e28c22c97191f6 *tests/testthat/test-independent-testing-check_args.R
 ce259fefd2b692126772b235bc9e7531 *tests/testthat/test-independent-testing-collect.R
-e61d5841169e4ec295c4c3c61fb796be *tests/testthat/test-independent-testing-collect_n_subject.R
+edd986d82c2630f1b75a04258f869380 *tests/testthat/test-independent-testing-collect_n_subject.R
 2aaffff07df3d4763de8fd363569b0c6 *tests/testthat/test-independent-testing-default.R
 a7aaccbd6e8d777c33b43b00d33aec99 *tests/testthat/test-independent-testing-define.R
 26a91942c66469dff12ba66922d3a272 *tests/testthat/test-independent-testing-fmt_quote-and-fmt_sentense.R
