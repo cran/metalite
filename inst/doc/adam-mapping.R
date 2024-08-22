@@ -1,11 +1,11 @@
-## ---- echo = FALSE, message = FALSE, include = FALSE--------------------------
+## ----echo = FALSE, message = FALSE, include = FALSE---------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   out.width = "100%"
 )
 
-## ---- message = FALSE---------------------------------------------------------
+## ----message = FALSE----------------------------------------------------------
 library(metalite)
 
 ## -----------------------------------------------------------------------------
@@ -38,7 +38,7 @@ ana <- df[eval(x$subset, df), ]
 split(ana, ana[[x$group]]) |>
   sapply(function(y) mean(y[[x$var]]))
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  library(dplyr)
 #  df |>
 #    dplyr::filter(!!x$subset) |>

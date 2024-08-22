@@ -1,15 +1,15 @@
-## ---- echo = FALSE, message = FALSE, include = FALSE--------------------------
+## ----echo = FALSE, message = FALSE, include = FALSE---------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   out.width = "100%"
 )
 
-## ---- message = FALSE---------------------------------------------------------
+## ----message = FALSE----------------------------------------------------------
 library(metalite)
 library(r2rtf)
 
-## ---- echo = FALSE, out.width = "100%", fig.align = "center"------------------
+## ----echo = FALSE, out.width = "100%", fig.align = "center"-------------------
 knitr::include_graphics("images/design-diagram.png")
 
 ## -----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ meta_adam(
   ) |>
   meta_build()
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ae_summary(
 #    meta,
 #    population,

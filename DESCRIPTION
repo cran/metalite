@@ -1,6 +1,6 @@
 Package: metalite
 Title: ADaM Metadata Structure
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: c(
     person("Yilong", "Zhang", role = c("aut")),
     person("Yujie", "Zhao", email = "yujie.zhao@merck.com", role = c("aut", "cre")),
@@ -28,13 +28,13 @@ BugReports: https://github.com/Merck/metalite/issues
 Encoding: UTF-8
 VignetteBuilder: knitr
 Depends: R (>= 4.1.0)
-Imports: glue, rlang, utils, stats
-Suggests: ggplot2, covr, dplyr, gt, knitr, r2rtf, rmarkdown, testthat
-        (>= 3.0.0), tibble
+Imports: rlang, utils, stats
+Suggests: ggplot2, covr, dplyr, glue, gt, knitr, r2rtf, rmarkdown,
+        testthat (>= 3.0.0), tibble
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 NeedsCompilation: no
-Packaged: 2023-08-10 01:56:11 UTC; wangben
+Packaged: 2024-08-22 17:25:19 UTC; wangben
 Author: Yilong Zhang [aut],
   Yujie Zhao [aut, cre],
   Nan Xiao [aut],
@@ -48,4 +48,4 @@ Author: Yilong Zhang [aut],
   Merck Sharp & Dohme Corp [cph]
 Maintainer: Yujie Zhao <yujie.zhao@merck.com>
 Repository: CRAN
-Date/Publication: 2023-08-10 17:00:02 UTC
+Date/Publication: 2024-08-22 22:00:02 UTC

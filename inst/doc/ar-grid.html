@@ -340,9 +340,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metalite)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r2rtf)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(metalite)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(r2rtf)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>In this document, we illustrate how to create the A&amp;R grid by
@@ -352,104 +352,104 @@ metalite.</p>
 <h2>Build metadata</h2>
 <div id="step-1-input-the-population-and-observation-datasets" class="section level3">
 <h3>Step 1: input the population and observation datasets</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">meta_adam</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> r2rtf_adsl,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> r2rtf_adae</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">meta_adam</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">population =</span> r2rtf_adsl,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">observation =</span> r2rtf_adae</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="step-2-create-statistical-analysis-plans" class="section level3">
 <h3>Step 2: create statistical analysis plans</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">&lt;-</span> <span class="fu">plan</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> <span class="fu">c</span>(<span class="st">&quot;wk12&quot;</span>, <span class="st">&quot;wk24&quot;</span>), <span class="at">parameter =</span> <span class="st">&quot;any;rel;ser&quot;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_plan</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">analysis =</span> <span class="st">&quot;ae_specific&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">c</span>(<span class="st">&quot;wk12&quot;</span>, <span class="st">&quot;wk24&quot;</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> <span class="fu">c</span>(<span class="st">&quot;any&quot;</span>, <span class="st">&quot;aeosi&quot;</span>, <span class="st">&quot;rel&quot;</span>, <span class="st">&quot;ser&quot;</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>plan <span class="ot">&lt;-</span> <span class="fu">plan</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">observation =</span> <span class="fu">c</span>(<span class="st">&quot;wk12&quot;</span>, <span class="st">&quot;wk24&quot;</span>), <span class="at">parameter =</span> <span class="st">&quot;any;rel;ser&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">add_plan</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="at">analysis =</span> <span class="st">&quot;ae_specific&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="at">observation =</span> <span class="fu">c</span>(<span class="st">&quot;wk12&quot;</span>, <span class="st">&quot;wk24&quot;</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="at">parameter =</span> <span class="fu">c</span>(<span class="st">&quot;any&quot;</span>, <span class="st">&quot;aeosi&quot;</span>, <span class="st">&quot;rel&quot;</span>, <span class="st">&quot;ser&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="step-3-feed-in-the-analysis-plan-to-the-existing-metadata" class="section level3">
 <h3>Step 3: feed in the analysis plan to the existing metadata</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span> <span class="fu">define_plan</span>(plan)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span> <span class="fu">define_plan</span>(plan)</span></code></pre></div>
 </div>
 <div id="step-4-define-the-key-words-in-the-above-metadata" class="section level3">
 <h3>Step 4: define the key words in the above metadata</h3>
 </div>
 <div id="step-4.1-define-the-key-words-in-population-observation" class="section level3">
 <h3>Step 4.1: define the key words in population &amp; observation</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_population</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;apat&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRT01A&quot;</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk12&quot;</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 12&quot;</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk24&quot;</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AOCC01FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>, <span class="co"># just for demo, another flag shall be used.</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 24&quot;</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">define_population</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRT01A&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk12&quot;</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 12&quot;</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk24&quot;</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    <span class="at">subset =</span> AOCC01FL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>, <span class="co"># just for demo, another flag shall be used.</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 24&quot;</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="step-4.2-define-the-key-words-in-the-analysis-plans" class="section level3">
 <h3>Step 4.2 define the key words in the analysis plans</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;rel&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AEREL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;POSSIBLE&quot;</span>, <span class="st">&quot;PROBABLE&quot;</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;aeosi&quot;</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AEOSI <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;adverse events of special interest&quot;</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_summary&quot;</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Adverse Events&quot;</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_specific&quot;</span>,</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Specific Adverse Events&quot;</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;rel&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="at">subset =</span> AEREL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;POSSIBLE&quot;</span>, <span class="st">&quot;PROBABLE&quot;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;aeosi&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="at">subset =</span> AEOSI <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;adverse events of special interest&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_summary&quot;</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Adverse Events&quot;</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_specific&quot;</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Specific Adverse Events&quot;</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="step-5-build-the-metadata" class="section level3">
 <h3>Step 5: build the metadata</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span> <span class="fu">meta_build</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">|&gt;</span> <span class="fu">meta_build</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="create-ar-grid" class="section level2">
 <h2>Create A&amp;R grid</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ar_grid <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="fu">spec_title</span>(metadata),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">spec_filename</span>(metadata),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">function_name =</span> metadata<span class="sc">$</span>plan<span class="sc">$</span>analysis,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">spec_analysis_population</span>(metadata)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ar_grid <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="st">&quot;&lt;br&gt;&quot;</span>, .x))) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_markdown</span>(<span class="at">columns =</span> gt<span class="sc">::</span><span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="dv">15</span>)</span></code></pre></div>
-<div id="aglwlkyldk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aglwlkyldk table {
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>ar_grid <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">title =</span> <span class="fu">spec_title</span>(metadata),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">spec_filename</span>(metadata),</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">function_name =</span> metadata<span class="sc">$</span>plan<span class="sc">$</span>analysis,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">spec_analysis_population</span>(metadata)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>ar_grid <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="st">&quot;&lt;br&gt;&quot;</span>, .x))) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">fmt_markdown</span>(<span class="at">columns =</span> gt<span class="sc">::</span><span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="dv">15</span>)</span></code></pre></div>
+<div id="kcodditwtg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kcodditwtg table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#aglwlkyldk thead, #aglwlkyldk tbody, #aglwlkyldk tfoot, #aglwlkyldk tr, #aglwlkyldk td, #aglwlkyldk th {
+#kcodditwtg thead, #kcodditwtg tbody, #kcodditwtg tfoot, #kcodditwtg tr, #kcodditwtg td, #kcodditwtg th {
 border-style: none;
 }
-#aglwlkyldk p {
+#kcodditwtg p {
 margin: 0;
 padding: 0;
 }
-#aglwlkyldk .gt_table {
+#kcodditwtg .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -474,11 +474,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#aglwlkyldk .gt_caption {
+#kcodditwtg .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#aglwlkyldk .gt_title {
+#kcodditwtg .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -489,7 +489,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#aglwlkyldk .gt_subtitle {
+#kcodditwtg .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -500,7 +500,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#aglwlkyldk .gt_heading {
+#kcodditwtg .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -511,12 +511,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#aglwlkyldk .gt_bottom_border {
+#kcodditwtg .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#aglwlkyldk .gt_col_headings {
+#kcodditwtg .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -530,7 +530,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#aglwlkyldk .gt_col_heading {
+#kcodditwtg .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -549,7 +549,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#aglwlkyldk .gt_column_spanner_outer {
+#kcodditwtg .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -560,13 +560,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#aglwlkyldk .gt_column_spanner_outer:first-child {
+#kcodditwtg .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#aglwlkyldk .gt_column_spanner_outer:last-child {
+#kcodditwtg .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#aglwlkyldk .gt_column_spanner {
+#kcodditwtg .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -577,10 +577,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#aglwlkyldk .gt_spanner_row {
+#kcodditwtg .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#aglwlkyldk .gt_group_heading {
+#kcodditwtg .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -605,7 +605,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#aglwlkyldk .gt_empty_group_heading {
+#kcodditwtg .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -619,13 +619,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#aglwlkyldk .gt_from_md > :first-child {
+#kcodditwtg .gt_from_md > :first-child {
 margin-top: 0;
 }
-#aglwlkyldk .gt_from_md > :last-child {
+#kcodditwtg .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#aglwlkyldk .gt_row {
+#kcodditwtg .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -643,7 +643,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#aglwlkyldk .gt_stub {
+#kcodditwtg .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -655,7 +655,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aglwlkyldk .gt_stub_row_group {
+#kcodditwtg .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -668,13 +668,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#aglwlkyldk .gt_row_group_first td {
+#kcodditwtg .gt_row_group_first td {
 border-top-width: 2px;
 }
-#aglwlkyldk .gt_row_group_first th {
+#kcodditwtg .gt_row_group_first th {
 border-top-width: 2px;
 }
-#aglwlkyldk .gt_summary_row {
+#kcodditwtg .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -683,14 +683,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aglwlkyldk .gt_first_summary_row {
+#kcodditwtg .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#aglwlkyldk .gt_first_summary_row.thick {
+#kcodditwtg .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#aglwlkyldk .gt_last_summary_row {
+#kcodditwtg .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -699,7 +699,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#aglwlkyldk .gt_grand_summary_row {
+#kcodditwtg .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -708,7 +708,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aglwlkyldk .gt_first_grand_summary_row {
+#kcodditwtg .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -717,7 +717,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#aglwlkyldk .gt_last_grand_summary_row_top {
+#kcodditwtg .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -726,10 +726,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#aglwlkyldk .gt_striped {
+#kcodditwtg .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#aglwlkyldk .gt_table_body {
+#kcodditwtg .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -737,7 +737,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#aglwlkyldk .gt_footnotes {
+#kcodditwtg .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -750,7 +750,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#aglwlkyldk .gt_footnote {
+#kcodditwtg .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -758,7 +758,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aglwlkyldk .gt_sourcenotes {
+#kcodditwtg .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -771,63 +771,62 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#aglwlkyldk .gt_sourcenote {
+#kcodditwtg .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#aglwlkyldk .gt_left {
+#kcodditwtg .gt_left {
 text-align: left;
 }
-#aglwlkyldk .gt_center {
+#kcodditwtg .gt_center {
 text-align: center;
 }
-#aglwlkyldk .gt_right {
+#kcodditwtg .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#aglwlkyldk .gt_font_normal {
+#kcodditwtg .gt_font_normal {
 font-weight: normal;
 }
-#aglwlkyldk .gt_font_bold {
+#kcodditwtg .gt_font_bold {
 font-weight: bold;
 }
-#aglwlkyldk .gt_font_italic {
+#kcodditwtg .gt_font_italic {
 font-style: italic;
 }
-#aglwlkyldk .gt_super {
+#kcodditwtg .gt_super {
 font-size: 65%;
 }
-#aglwlkyldk .gt_footnote_marks {
+#kcodditwtg .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#aglwlkyldk .gt_asterisk {
+#kcodditwtg .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#aglwlkyldk .gt_indent_1 {
+#kcodditwtg .gt_indent_1 {
 text-indent: 5px;
 }
-#aglwlkyldk .gt_indent_2 {
+#kcodditwtg .gt_indent_2 {
 text-indent: 10px;
 }
-#aglwlkyldk .gt_indent_3 {
+#kcodditwtg .gt_indent_3 {
 text-indent: 15px;
 }
-#aglwlkyldk .gt_indent_4 {
+#kcodditwtg .gt_indent_4 {
 text-indent: 20px;
 }
-#aglwlkyldk .gt_indent_5 {
+#kcodditwtg .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
-    
     <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="title">title</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="filename">filename</th>

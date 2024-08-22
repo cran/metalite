@@ -340,9 +340,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metalite)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r2rtf)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(metalite)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(r2rtf)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <p>In this document, we illustrate a way to create mockup table by using
 the metadata created by metalite. An easy-to-follow example is used for
 illustration purpose. If users want to get a comprehensive production
@@ -377,12 +377,12 @@ from <code>r2rtf::r2rtf_adae</code> and the population dataset comes
 from <code>r2rtf::r2rtf_adsl</code>. So we define the metadata by
 <code>meta_adam()</code> as follows, where users can specify the
 observation dataset name and population dataset name.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>adae <span class="ot">&lt;-</span> r2rtf<span class="sc">::</span>r2rtf_adae</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> r2rtf<span class="sc">::</span>r2rtf_adsl <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">TRTA =</span> TRT01A)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">meta_adam</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> adae,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> adsl</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>adae <span class="ot">&lt;-</span> r2rtf<span class="sc">::</span>r2rtf_adae</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> r2rtf<span class="sc">::</span>r2rtf_adsl <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">TRTA =</span> TRT01A)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">meta_adam</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">observation =</span> adae,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">population =</span> adsl</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="step-2-define-the-analysis-plan" class="section level3">
 <h3>Step 2: Define the analysis plan</h3>
@@ -409,24 +409,24 @@ population, observation and parameter key words for</p>
 in AE summary.</p>
 <p>So, we can define an analysis plan as below for a total of 2 mockup
 to generate 4 TLFs.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">&lt;-</span> <span class="fu">plan</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> <span class="st">&quot;wk12&quot;</span>, <span class="at">parameter =</span> <span class="st">&quot;any;rel;ser&quot;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_plan</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">analysis =</span> <span class="st">&quot;ae_specific&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> <span class="st">&quot;wk12&quot;</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> <span class="fu">c</span>(<span class="st">&quot;any&quot;</span>, <span class="st">&quot;rel&quot;</span>, <span class="st">&quot;ser&quot;</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>plan</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    2 ae_specific       apat        wk12         any</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    2 ae_specific       apat        wk12         rel</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    2 ae_specific       apat        wk12         ser</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>plan <span class="ot">&lt;-</span> <span class="fu">plan</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">observation =</span> <span class="st">&quot;wk12&quot;</span>, <span class="at">parameter =</span> <span class="st">&quot;any;rel;ser&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">add_plan</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="at">analysis =</span> <span class="st">&quot;ae_specific&quot;</span>, <span class="at">population =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="at">observation =</span> <span class="st">&quot;wk12&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="at">parameter =</span> <span class="fu">c</span>(<span class="st">&quot;any&quot;</span>, <span class="st">&quot;rel&quot;</span>, <span class="st">&quot;ser&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>plan</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; 2    2 ae_specific       apat        wk12         any</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 3    2 ae_specific       apat        wk12         rel</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 4    2 ae_specific       apat        wk12         ser</span></span></code></pre></div>
 <p>Then, we use incorporate the above defined plan into the metadata by
 using <code>define_plan()</code>, i.e.,</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">define_plan</span>(plan)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">define_plan</span>(plan)</span></code></pre></div>
 </div>
 <div id="step-3-define-the-keywords" class="section level3">
 <h3>Step 3: Define the keywords</h3>
@@ -436,28 +436,28 @@ the meaning of key words.</p>
 <p>The following code define the keywords <code>&quot;apat&quot;</code>, which is
 a population keywords for APaT population. And here we also cover the
 key information such as group variable, the group order, etc…</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_population</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;apat&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_order =</span> <span class="fu">c</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;High Dose&quot;</span> <span class="ot">=</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">define_population</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;apat&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="at">group_order =</span> <span class="fu">c</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>      <span class="st">&quot;High Dose&quot;</span> <span class="ot">=</span> <span class="st">&quot;Xanomeline High Dose&quot;</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>      <span class="st">&quot;Placebo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Placebo&quot;</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    ),</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  )</span></code></pre></div>
 <p><strong>Define keywords in observation:</strong></p>
 <p>The following code define the keywords <code>&quot;wk12&quot;</code>, which is
 an observation keywords for Weeks 0-12 observations.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk12&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ae_var =</span> <span class="st">&quot;AEDECOD&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;AEREL&quot;</span>, <span class="st">&quot;AESER&quot;</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 12&quot;</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">define_observation</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;wk12&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="at">group =</span> <span class="st">&quot;TRTA&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="at">ae_var =</span> <span class="st">&quot;AEDECOD&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;AEREL&quot;</span>, <span class="st">&quot;AESER&quot;</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    <span class="at">subset =</span> SAFFL <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;Weeks 0 to 12&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  )</span></code></pre></div>
 <p><strong>Define keywords in analysis plans:</strong></p>
 <p>Note that in the analysis plan, there are 5 keywords:</p>
 <ul>
@@ -475,77 +475,77 @@ analysis.</li>
 <p>For the first three keywords, we can define them by
 <code>define_parameter()</code> as follows. Here we can add (1) the
 endnotes, (2) labels, (3) the criterion to filter, etc.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;any&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_notes =</span> <span class="fu">c</span>()</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;rel&quot;</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AEREL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;POSSIBLE&quot;</span>, <span class="st">&quot;PROBABLE&quot;</span>),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;drug-realted adverse events&quot;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ser&quot;</span>,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subset =</span> AESER <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;serious adverse events&quot;</span>,</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_notes =</span> <span class="fu">c</span>(<span class="st">&quot;Serious adverse events up to 90 days of last dose are included.&quot;</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;any&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>    <span class="at">end_notes =</span> <span class="fu">c</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;rel&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    <span class="at">subset =</span> AEREL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;POSSIBLE&quot;</span>, <span class="st">&quot;PROBABLE&quot;</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;drug-realted adverse events&quot;</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">define_parameter</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ser&quot;</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    <span class="at">subset =</span> AESER <span class="sc">==</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;serious adverse events&quot;</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="at">end_notes =</span> <span class="fu">c</span>(<span class="st">&quot;Serious adverse events up to 90 days of last dose are included.&quot;</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  )</span></code></pre></div>
 <p>For the last two keywords, we can define them by
 <code>define_analysis()</code>. In this vignette, we only present the
 mockup table of AE summary. If users are interested in specific AE
 analysis, please define the keywords for <code>&quot;ae_specific&quot;</code> as
 <code>define_analysis(name = &quot;ae_specific&quot;, title = ...)</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_summary&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Adverse Events&quot;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">define_analysis</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;ae_summary&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Summary of Adverse Events&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="step-4-build-and-review-the-metadata" class="section level3">
 <h3>Step 4: Build and review the metadata</h3>
 <p>Once all keywords, datasets, analysis plan are defined, users can
 build the metadata to compose all the information.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">meta_build</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">meta_build</span>()</span></code></pre></div>
 <p>After the entire metadata is built, users can review the analysis
 plan by</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>meta<span class="sc">$</span>plan</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    2 ae_specific       apat        wk12         any</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    2 ae_specific       apat        wk12         rel</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    2 ae_specific       apat        wk12         ser</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>meta<span class="sc">$</span>plan</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; 2    2 ae_specific       apat        wk12         any</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; 3    2 ae_specific       apat        wk12         rel</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; 4    2 ae_specific       apat        wk12         ser</span></span></code></pre></div>
 <p>And the entire meta is</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>meta</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ADaM metadata: </span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .$data_population     Population data with 254 subjects </span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .$data_observation    Observation data with 1191 records </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .$plan    Analysis plan with 4 plans </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis population type:</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     name        id  group var       subset                         label</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &#39;apat&#39; &#39;USUBJID&#39; &#39;TRTA&#39;     SAFFL == &#39;Y&#39; &#39;All Participants as Treated&#39;</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                     group_order</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Xanomeline High Dose, Placebo</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis observation type:</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     name        id  group          var       subset           label    ae_var</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &#39;wk12&#39; &#39;USUBJID&#39; &#39;TRTA&#39; AEREL, AESER SAFFL == &#39;Y&#39; &#39;Weeks 0 to 12&#39; &#39;AEDECOD&#39;</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis parameter type:</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    name                         label                               subset</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &#39;any&#39;          &#39;any adverse events&#39;                                     </span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &#39;rel&#39; &#39;drug-realted adverse events&#39; AEREL %in% c(&#39;POSSIBLE&#39;, &#39;PROBABLE&#39;)</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &#39;ser&#39;      &#39;serious adverse events&#39;                         AESER == &#39;Y&#39;</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Analysis function:</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            name                           label</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  &#39;ae_summary&#39;  &#39;Table: adverse event summary&#39;</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &#39;ae_specific&#39; &#39;Table: specific adverse event&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>meta</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; ADaM metadata: </span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt;    .$data_population     Population data with 254 subjects </span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt;    .$data_observation    Observation data with 1191 records </span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;    .$plan    Analysis plan with 4 plans </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt;   Analysis population type:</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt;     name        id  group var       subset                         label</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; 1 &#39;apat&#39; &#39;USUBJID&#39; &#39;TRTA&#39;     SAFFL == &#39;Y&#39; &#39;All Participants as Treated&#39;</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;                     group_order</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; 1 Xanomeline High Dose, Placebo</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt;   Analysis observation type:</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt;     name        id  group          var       subset           label    ae_var</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; 1 &#39;wk12&#39; &#39;USUBJID&#39; &#39;TRTA&#39; AEREL, AESER SAFFL == &#39;Y&#39; &#39;Weeks 0 to 12&#39; &#39;AEDECOD&#39;</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt;   Analysis parameter type:</span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt;    name                         label                               subset</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; 1 &#39;any&#39;          &#39;any adverse events&#39;                                     </span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; 2 &#39;rel&#39; &#39;drug-realted adverse events&#39; AEREL %in% c(&#39;POSSIBLE&#39;, &#39;PROBABLE&#39;)</span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; 3 &#39;ser&#39;      &#39;serious adverse events&#39;                         AESER == &#39;Y&#39;</span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt;   Analysis function:</span></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt;            name                           label</span></span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a><span class="co">#&gt; 1  &#39;ae_summary&#39;  &#39;Table: adverse event summary&#39;</span></span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#&gt; 2 &#39;ae_specific&#39; &#39;Table: specific adverse event&#39;</span></span></code></pre></div>
 </div>
 </div>
 <div id="add-components-of-mockup-table" class="section level2">
@@ -558,31 +558,31 @@ analysis.</li>
 <li><code>output_report</code> to define the output path based on
 <code>analysis</code> keywords.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>meta<span class="sc">$</span>plan <span class="ot">&lt;-</span> meta<span class="sc">$</span>plan <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mockup =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_report =</span> <span class="fu">paste0</span>(<span class="st">&quot;./tlf/mock-&quot;</span>, analysis, <span class="st">&quot;.rtf&quot;</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>meta<span class="sc">$</span>plan</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter mockup</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser   TRUE</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    2 ae_specific       apat        wk12         any   TRUE</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    2 ae_specific       apat        wk12         rel   TRUE</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    2 ae_specific       apat        wk12         ser   TRUE</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                output_report</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  ./tlf/mock-ae_summary.rtf</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 ./tlf/mock-ae_specific.rtf</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 ./tlf/mock-ae_specific.rtf</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 ./tlf/mock-ae_specific.rtf</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>meta<span class="sc">$</span>plan <span class="ot">&lt;-</span> meta<span class="sc">$</span>plan <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="at">mockup =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    <span class="at">output_report =</span> <span class="fu">paste0</span>(<span class="st">&quot;./tlf/mock-&quot;</span>, analysis, <span class="st">&quot;.rtf&quot;</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  )</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>meta<span class="sc">$</span>plan</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt;   mock    analysis population observation   parameter mockup</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; 1    1  ae_summary       apat        wk12 any;rel;ser   TRUE</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; 2    2 ae_specific       apat        wk12         any   TRUE</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt; 3    2 ae_specific       apat        wk12         rel   TRUE</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; 4    2 ae_specific       apat        wk12         ser   TRUE</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt;                output_report</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; 1  ./tlf/mock-ae_summary.rtf</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; 2 ./tlf/mock-ae_specific.rtf</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; 3 ./tlf/mock-ae_specific.rtf</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt; 4 ./tlf/mock-ae_specific.rtf</span></span></code></pre></div>
 <p>After the plan is updated, we can construct call program. Here we
 also provide a global argument for the data source.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec_call_program</span>(meta,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">&quot;[adam-adsl; adae]&quot;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;ae_summary(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any;rel;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_summary.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;      </span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;rel&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;      </span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">spec_call_program</span>(meta,</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">&quot;[adam-adsl; adae]&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;ae_summary(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any;rel;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_summary.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; [2] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;      </span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; [3] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;rel&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;      </span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ae_specific(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_specific.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)&quot;</span></span></code></pre></div>
 <p>The pending effort is to define an <code>ae_summary()</code> and an
 <code>ae_specific()</code> function that can generate the mock up tables
 based on the inputs.</p>
@@ -595,93 +595,93 @@ illustrate the idea.</p>
 <summary>
 Click to view the code for function <code>ae_summary()</code>
 </summary>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ae_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(meta,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                       population,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                       observation,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                       parameter,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                       mockup,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                       output_report,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                       data_source,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                       ...) {</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Identify parameter keywords</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  para_list <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(parameter, <span class="st">&quot;;&quot;</span>))</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Row label</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  ae_label <span class="ot">&lt;-</span> <span class="fu">vapply</span>(para_list,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">collect_adam_mapping</span>(meta, x)<span class="sc">$</span>label</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN.VALUE =</span> <span class="fu">character</span>(<span class="dv">1</span>)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get treatment grouping order</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  trt_order <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">collect_adam_mapping</span>(meta, population)<span class="sc">$</span>group_order)</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the title/endnotes of TLF</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  title_text <span class="ot">&lt;-</span> <span class="fu">collect_title</span>(</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">meta =</span> meta,</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">population =</span> population,</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">observation =</span> observation,</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> parameter, <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  title_text[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;{Week}&quot;</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Logic to create mockup table</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (mockup) {</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate RTF</span></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">ae_label =</span> ae_label,</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_1 =</span> <span class="fu">rep</span>(<span class="st">&quot;x&quot;</span>, <span class="fu">length</span>(ae_label)),</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_2 =</span> <span class="fu">rep</span>(<span class="st">&quot;x&quot;</span>, <span class="fu">length</span>(ae_label)), <span class="co"># no display_total/CI</span></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">pct_1 =</span> <span class="fu">rep</span>(<span class="st">&quot;x.xx&quot;</span>, <span class="fu">length</span>(ae_label)),</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">pct_2 =</span> <span class="fu">rep</span>(<span class="st">&quot;x.xx&quot;</span>, <span class="fu">length</span>(ae_label))</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(ae_label, n_1, pct_1, n_2, pct_2, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>      <span class="co"># r2rtf::rtf_title(rtf_mock_color(title_text)) |&gt;</span></span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_title</span>(title_text) <span class="sc">|&gt;</span></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_colheader</span>(<span class="fu">paste0</span>(<span class="st">&quot; | &quot;</span>, <span class="fu">paste</span>(<span class="fu">names</span>(trt_order), <span class="at">collapse =</span> <span class="st">&quot; | &quot;</span>), <span class="st">&quot; &quot;</span>),</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">2</span>, <span class="fu">length</span>(trt_order)))</span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_colheader</span>(<span class="st">&quot; | n | (%) | n | (%) &quot;</span>,</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_top =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;single&quot;</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order))),</span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_bottom =</span> <span class="st">&quot;single&quot;</span>,</span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_left =</span> <span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="st">&quot;&quot;</span>), <span class="fu">length</span>(trt_order))),</span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order)))</span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_body</span>(</span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order))),</span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">border_left =</span> <span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="st">&quot;&quot;</span>), <span class="fu">length</span>(trt_order))),</span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">text_justification =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order)))</span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_source</span>(data_source)</span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Require r2rtf to use color</span></span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">attr</span>(x, <span class="st">&quot;page&quot;</span>)<span class="sc">$</span>use_color <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save RTF to a path</span></span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(output_report)) {</span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">|&gt;</span></span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>        r2rtf<span class="sc">::</span><span class="fu">rtf_encode</span>() <span class="sc">|&gt;</span></span>
-<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>        r2rtf<span class="sc">::</span><span class="fu">write_rtf</span>(output_report)</span>
-<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>mockup) {</span>
-<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Logic to perform actual AE summary table.</span></span>
-<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Omit here</span></span>
-<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>  output_report</span>
-<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>ae_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(meta,</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                       population,</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                       observation,</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                       parameter,</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                       mockup,</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>                       output_report,</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>                       data_source,</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>                       ...) {</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="co"># Identify parameter keywords</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  para_list <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(parameter, <span class="st">&quot;;&quot;</span>))</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  <span class="co"># Row label</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>  ae_label <span class="ot">&lt;-</span> <span class="fu">vapply</span>(para_list,</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>    <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>      <span class="fu">collect_adam_mapping</span>(meta, x)<span class="sc">$</span>label</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>    },</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>    <span class="at">FUN.VALUE =</span> <span class="fu">character</span>(<span class="dv">1</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>  )</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>  <span class="co"># Get treatment grouping order</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>  trt_order <span class="ot">&lt;-</span> <span class="fu">eval</span>(<span class="fu">collect_adam_mapping</span>(meta, population)<span class="sc">$</span>group_order)</span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>  <span class="co"># Get the title/endnotes of TLF</span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>  title_text <span class="ot">&lt;-</span> <span class="fu">collect_title</span>(</span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>    <span class="at">meta =</span> meta,</span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>    <span class="at">population =</span> population,</span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>    <span class="at">observation =</span> observation,</span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>    <span class="at">parameter =</span> parameter, <span class="at">analysis =</span> <span class="st">&quot;ae_summary&quot;</span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a>  )</span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a>  title_text[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;{Week}&quot;</span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a>  <span class="co"># Logic to create mockup table</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a>  <span class="cf">if</span> (mockup) {</span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a>    <span class="co"># Generate RTF</span></span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a>      <span class="at">ae_label =</span> ae_label,</span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a>      <span class="at">n_1 =</span> <span class="fu">rep</span>(<span class="st">&quot;x&quot;</span>, <span class="fu">length</span>(ae_label)),</span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a>      <span class="at">n_2 =</span> <span class="fu">rep</span>(<span class="st">&quot;x&quot;</span>, <span class="fu">length</span>(ae_label)), <span class="co"># no display_total/CI</span></span>
+<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a>      <span class="at">pct_1 =</span> <span class="fu">rep</span>(<span class="st">&quot;x.xx&quot;</span>, <span class="fu">length</span>(ae_label)),</span>
+<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a>      <span class="at">pct_2 =</span> <span class="fu">rep</span>(<span class="st">&quot;x.xx&quot;</span>, <span class="fu">length</span>(ae_label))</span>
+<span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">select</span>(ae_label, n_1, pct_1, n_2, pct_2, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb14-43"><a href="#cb14-43" tabindex="-1"></a>      <span class="co"># r2rtf::rtf_title(rtf_mock_color(title_text)) |&gt;</span></span>
+<span id="cb14-44"><a href="#cb14-44" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_title</span>(title_text) <span class="sc">|&gt;</span></span>
+<span id="cb14-45"><a href="#cb14-45" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_colheader</span>(<span class="fu">paste0</span>(<span class="st">&quot; | &quot;</span>, <span class="fu">paste</span>(<span class="fu">names</span>(trt_order), <span class="at">collapse =</span> <span class="st">&quot; | &quot;</span>), <span class="st">&quot; &quot;</span>),</span>
+<span id="cb14-46"><a href="#cb14-46" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">2</span>, <span class="fu">length</span>(trt_order)))</span>
+<span id="cb14-47"><a href="#cb14-47" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb14-48"><a href="#cb14-48" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_colheader</span>(<span class="st">&quot; | n | (%) | n | (%) &quot;</span>,</span>
+<span id="cb14-49"><a href="#cb14-49" tabindex="-1"></a>        <span class="at">border_top =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;single&quot;</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-50"><a href="#cb14-50" tabindex="-1"></a>        <span class="at">border_bottom =</span> <span class="st">&quot;single&quot;</span>,</span>
+<span id="cb14-51"><a href="#cb14-51" tabindex="-1"></a>        <span class="at">border_left =</span> <span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="st">&quot;&quot;</span>), <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-52"><a href="#cb14-52" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order)))</span>
+<span id="cb14-53"><a href="#cb14-53" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb14-54"><a href="#cb14-54" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_body</span>(</span>
+<span id="cb14-55"><a href="#cb14-55" tabindex="-1"></a>        <span class="at">col_rel_width =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-56"><a href="#cb14-56" tabindex="-1"></a>        <span class="at">border_left =</span> <span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;single&quot;</span>, <span class="st">&quot;&quot;</span>), <span class="fu">length</span>(trt_order))),</span>
+<span id="cb14-57"><a href="#cb14-57" tabindex="-1"></a>        <span class="at">text_justification =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">2</span> <span class="sc">*</span> <span class="fu">length</span>(trt_order)))</span>
+<span id="cb14-58"><a href="#cb14-58" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb14-59"><a href="#cb14-59" tabindex="-1"></a>      r2rtf<span class="sc">::</span><span class="fu">rtf_source</span>(data_source)</span>
+<span id="cb14-60"><a href="#cb14-60" tabindex="-1"></a></span>
+<span id="cb14-61"><a href="#cb14-61" tabindex="-1"></a>    <span class="co"># Require r2rtf to use color</span></span>
+<span id="cb14-62"><a href="#cb14-62" tabindex="-1"></a>    <span class="fu">attr</span>(x, <span class="st">&quot;page&quot;</span>)<span class="sc">$</span>use_color <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb14-63"><a href="#cb14-63" tabindex="-1"></a></span>
+<span id="cb14-64"><a href="#cb14-64" tabindex="-1"></a>    <span class="co"># Save RTF to a path</span></span>
+<span id="cb14-65"><a href="#cb14-65" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(output_report)) {</span>
+<span id="cb14-66"><a href="#cb14-66" tabindex="-1"></a>      x <span class="sc">|&gt;</span></span>
+<span id="cb14-67"><a href="#cb14-67" tabindex="-1"></a>        r2rtf<span class="sc">::</span><span class="fu">rtf_encode</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-68"><a href="#cb14-68" tabindex="-1"></a>        r2rtf<span class="sc">::</span><span class="fu">write_rtf</span>(output_report)</span>
+<span id="cb14-69"><a href="#cb14-69" tabindex="-1"></a>    }</span>
+<span id="cb14-70"><a href="#cb14-70" tabindex="-1"></a>  }</span>
+<span id="cb14-71"><a href="#cb14-71" tabindex="-1"></a></span>
+<span id="cb14-72"><a href="#cb14-72" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>mockup) {</span>
+<span id="cb14-73"><a href="#cb14-73" tabindex="-1"></a>    <span class="co"># Logic to perform actual AE summary table.</span></span>
+<span id="cb14-74"><a href="#cb14-74" tabindex="-1"></a>    <span class="co"># Omit here</span></span>
+<span id="cb14-75"><a href="#cb14-75" tabindex="-1"></a>  }</span>
+<span id="cb14-76"><a href="#cb14-76" tabindex="-1"></a></span>
+<span id="cb14-77"><a href="#cb14-77" tabindex="-1"></a>  output_report</span>
+<span id="cb14-78"><a href="#cb14-78" tabindex="-1"></a>}</span></code></pre></div>
 </details>
 <p>For illustration purposes, we only create mock up table for the first
 row.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meta_run</span>(meta,</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">i =</span> <span class="dv">1</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">&quot;[adam-adsl; adae]&quot;</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $`ae_summary(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any;rel;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_summary.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)`</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;./tlf/mock-ae_summary.rtf&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">meta_run</span>(meta,</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="at">i =</span> <span class="dv">1</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="at">data_source =</span> <span class="st">&quot;[adam-adsl; adae]&quot;</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>)</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; $`ae_summary(meta = meta, population = &#39;apat&#39;, observation = &#39;wk12&#39;, parameter = &#39;any;rel;ser&#39;, mockup = TRUE, output_report = &#39;./tlf/mock-ae_summary.rtf&#39;, data_source = &#39;[adam-adsl; adae]&#39;)`</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;./tlf/mock-ae_summary.rtf&quot;</span></span></code></pre></div>
 </div>
 <div id="display-the-generated-mockup-tables" class="section level2">
 <h2>Display the generated mockup tables</h2>

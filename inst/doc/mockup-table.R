@@ -1,10 +1,10 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ---- message=FALSE, warning=FALSE--------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 library(metalite)
 library(r2rtf)
 library(dplyr)
@@ -188,7 +188,7 @@ meta_run(meta,
   data_source = "[adam-adsl; adae]"
 )
 
-## ---- eval = FALSE, echo=FALSE------------------------------------------------
+## ----eval = FALSE, echo=FALSE-------------------------------------------------
 #  # Convert RTF to PDF
 #  r2rtf:::rtf_convert_format(
 #    input = "tlf/mock-ae_summary.rtf",
@@ -196,6 +196,6 @@ meta_run(meta,
 #    format = "pdf"
 #  )
 
-## ---- out.width = "100%", out.height = "400px", echo = FALSE, fig.align = "center"----
+## ----out.width = "100%", out.height = "400px", echo = FALSE, fig.align = "center"----
 knitr::include_graphics("tlf/mock-ae_summary.pdf")
 

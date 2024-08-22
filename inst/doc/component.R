@@ -1,11 +1,11 @@
-## ---- echo = FALSE, message = FALSE, include = FALSE--------------------------
+## ----echo = FALSE, message = FALSE, include = FALSE---------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   out.width = "100%"
 )
 
-## ---- message = FALSE---------------------------------------------------------
+## ----message = FALSE----------------------------------------------------------
 library(metalite)
 
 ## -----------------------------------------------------------------------------
